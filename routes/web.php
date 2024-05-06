@@ -19,15 +19,15 @@ use Illuminate\Support\Facades\Hash;
 */
 
 Route::get('/', function () {
-//    User::create([
-//        'name'=>'John Doe',
-//        'email'=>'admin@gmail.com',
-//        'email_verified_at'=>Hash::make('admin@gmail.com'),
-//        'password'=>Hash::make('admin'),
-//        'type'=>'admin',
-//        'photo'=>'public/assets/images/profile/user-1.jpg',
+    //  User::create([
+    //      'name'=>'John Doe',
+    //      'email'=>'admin@gmail.com',
+    //      'email_verified_at'=>Hash::make('admin@gmail.com'),
+    //      'password'=>Hash::make('admin'),
+    //      'type'=>'admin',
+    //      'image'=>'',
 
-//    ]);
+    //  ]);
 
     return view('users.profile');
 });

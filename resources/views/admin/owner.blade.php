@@ -191,7 +191,7 @@
               </div>
               @endif
 
-            <form action=' {{route('ownerregister')}}' method='post' enctype="multipart/form-data">
+            <form action=" {{route('ownerregister')}}"  method='post' enctype="multipart/form-data">
               @csrf
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Nom</label>
@@ -219,8 +219,8 @@
               </div>
 
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Photo</label>
-                <input type="file"  name="photo" class="form-control" id="exampleInputPassword1">
+                <label  class="form-label">Photo</label>
+                <input type="file"  name="photo" class="form-control"  >
               </div>
               
               <button type="submit" class="btn btn-primary">Submit</button>
@@ -255,8 +255,11 @@
                       <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0">Email</h6>
                       </th>
-                      <th class="border-bottom-0">
+                      <!-- <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0">Password</h6>
+                      </th> -->
+                      <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Photo</h6>
                       </th>
                       <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0">Actions</h6>
@@ -274,8 +277,12 @@
                           <p class="mb-0 fw-normal">{{ $product->email }}</p>
                         </td>
                         
-                        <td class="border-bottom-0">
+                        <!-- <td class="border-bottom-0">
                           <p class="mb-0 fw-normal"> {{$product->password}} </p>
+                        </td> -->
+
+                        <td class="border-bottom-0">
+                          <img src="{{$product->photo}}" alt="" style="width: 3rem;height: 3rem;border-radius :10rem;"  sizes="" srcset="">
                         </td>
 
                         <td class="border-bottom-0">

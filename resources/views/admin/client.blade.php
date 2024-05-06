@@ -192,7 +192,7 @@
               </div>
             @endif
 
-            <form method="post" action="{{route('clientregister')}}">
+            <form method="post" action="{{route('clientregister')}}" enctype="multipart/form-data" >
             @csrf
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Nom</label>
@@ -261,9 +261,9 @@
                       <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0">Email</h6>
                       </th>
-                      <th class="border-bottom-0">
+                      <!-- <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0">Password</h6>
-                      </th>
+                      </th> -->
                       <th class="border-bottom-0">
                         <h6 class="fw-semibold mb-0">Actions</h6>
                       </th>
@@ -282,7 +282,8 @@
                         </td>
                         
                         <td class="border-bottom-0">
-                          <p class="mb-0 fw-normal"> {{$product->password}} </p>
+                          <!-- <p class="mb-0 fw-normal"> {{$product->password}} </p> -->
+                          <img src="{{$product->photo}}" style="width:3rem; heigth:3rem ; border-radius:5rem" alt="" srcset="">
                         </td>
 
                         <td class="border-bottom-0">

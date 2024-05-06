@@ -14,7 +14,7 @@
         <div class="card-body">
            <h5 class="card-title fw-semibold mb-4">Update User</h5>
                     
-          <form method="post" action='{{route('update')}}'>
+          <form method="post" action="{{route('update')}} " enctype="multipart/form-data">
           @csrf
             <div visiblity="none" class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Nom</label>

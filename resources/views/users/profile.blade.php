@@ -172,7 +172,11 @@
         <div class="row gx-4">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              <img src="{{asset( Illuminate\Support\Facades\Auth::User()->photo)}} " alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+              @auth
+                
+              <img src="{{ User()->photo }} " alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+              @endauth
+              
             </div>
           </div>
           <div class="col-auto my-auto">

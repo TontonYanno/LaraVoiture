@@ -70,15 +70,22 @@ class AdminController extends Controller
             'name' => 'required|string|max:15',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/',
-            'photo' =>'required'
+            'photo' =>'required|image|nullable|mimes:png,jpg,jpeg,webp'
         ]);
+
+        if ($request->hasFile('photo')) {
+            $file=$request->file('photo');
+            $extension= $file->getClientOriginalExtension();
+            $filename=$extension;
+            $file->move('upload/users/',$filename);
+        }
 
         $user = new User();
         $user->name= $request->input('name');
         $user->email= $request->input('email');
         $user->type="client";
         $user->password= Hash::make($request->input('password'));
-        $user->photo = $request->input('photo');
+        $user->photo = '/upload/users/'.$filename;
         $user->save();
 
         return to_route('client')->with('success','new client is saved ');
@@ -90,22 +97,26 @@ class AdminController extends Controller
             'name' => 'required|string|max:15',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/',
-            'photo'=>'required',
+            'photo'=>'required|image|nullable|mimes:png,jpg,jpeg,webp',
         ]);
+
+        if ($request->hasFile('photo')) {
+
+            $file= $request->file('photo');
+            $extension= $file->getClientOriginalExtension();
+            $filename=$extension;
+            $file->move('upload/users/',$filename);
+        } 
         
         $user = new User();
         $user->name= $request->input('name');
-        $user->email= $request->input('email');
+        $user->email= $request->input('email');$user->photo ;
         $user->type="owner";
         $user->password= Hash::make($request->input('password'));
-       
-        $user->photo=$request->input('photo') ;
-       $image= $request->input('photo');
-        $image->store('public');
-        
+        $user->photo='upload/users/'.$filename;
         $user->save();
         
-        return to_route('owner')->with('success','a new owner is saved ');
+        return to_route('owner')->with('success','a new owner is saved ')->with('photo', '/upload/users/' . $user->photo);
     }
 
     public function delete ($id){
@@ -128,8 +139,16 @@ class AdminController extends Controller
             'name' => 'required|string|max:15',
             'email' => 'required|email|unique:users,email,'.$request->id.'|max:255',
             // 'password' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/',
-            'photo'=>'required',
+            'photo'=>'required|image|nullable|mimes:png,jpg,jpeg,webp',
         ]);
+
+        if ($request->hasFile('photo')) {
+
+            $file= $request->file('photo');
+            $extension= $file->getClientOriginalExtension();
+            $filename=$extension;
+            $file->move('upload/users/',$filename);
+        } 
     
         DB::table('users')
             ->where('id', $request->id)
@@ -137,7 +156,7 @@ class AdminController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 // 'password' => Hash::make($request->password),
-                'photo'=>$request->photo,
+                'photo'=>'upload/users/'.$filename,
             ]);
 
             if ($request->type==='client') {
