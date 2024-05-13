@@ -65,10 +65,13 @@
               <a class="btn btn-outline-white btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-soft-ui-dashboard">Online Builder</a>
             </li>
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Sign In</span>
-              </a>
+                    @auth 
+                      <form method='POST' action="{{route('logout')}}">
+                        @csrf
+                        <button type='submit'  class="btn btn-outline-white btn-sm mb-0 me-3 ">Logout</button >
+                      </form>
+                    @endauth
             </li>
             <li class="nav-item d-xl-none ps-3 pe-0 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0">
@@ -172,10 +175,8 @@
         <div class="row gx-4">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              @auth
                 
-              <img src="{{ User()->photo }} " alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-              @endauth
+              <img src="@auth{{ Illuminate\Support\Facades\Auth::User()->photo}} @endauth" alt="" class="w-100 border-radius-lg shadow-sm">
               
             </div>
           </div>
@@ -183,11 +184,13 @@
             <div class="h-100">
               <h5 class="mb-1">
                 @auth
-                  {{ Illuminate\Support\Facades\Auth::User()->photo }} 
+                  {{ Illuminate\Support\Facades\Auth::User()->name }} 
                 @endauth
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
-                CEO / Co-Founder
+                @auth
+                  {{Illuminate\Support\Facades\Auth::User()->type}}
+                @endauth
               </p>
             </div>
           </div>
@@ -417,7 +420,7 @@
           <div class="card mb-4">
             <div class="card-header pb-0 p-3">
               <h6 class="mb-1">Projects</h6>
-              <p class="text-sm">Architects design houses</p>
+              <p class="text-sm">Conssesions en ligne des voitures</p>
             </div>
             <div class="card-body p-3">
               <div class="row">
@@ -533,9 +536,9 @@
                   </div>
                 </div>
                 <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                  <div class="card h-100 card-plain border">
+                <div class="card h-100 card-plain border">
                     <div class="card-body d-flex flex-column justify-content-center text-center">
-                      <a href="javascript:;">
+                      <a href="{{}}">
                         <i class="fa fa-plus text-secondary mb-3"></i>
                         <h5 class=" text-secondary"> New project </h5>
                       </a>

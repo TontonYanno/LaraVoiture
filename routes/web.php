@@ -29,7 +29,7 @@ Route::get('/', function () {
 
     //  ]);
 
-    return view('users.profile');
+    return view('welcome');
 });
 
 Route::get('/adminlogin',[AdminController::class,'login'])->name('adminlogin');

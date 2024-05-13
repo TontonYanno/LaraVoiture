@@ -57,12 +57,12 @@ class AdminController extends Controller
 
     public function logout(Request $request): RedirectResponse{
         Auth::logout();
- 
+
         $request->session()->invalidate();
-     
+
         $request->session()->regenerateToken();
-     
-        return redirect()->route('adminlogin'); 
+
+        return redirect()->route('adminlogin');
     }
 
     public function clientregister(Request $request):RedirectResponse{
@@ -92,7 +92,7 @@ class AdminController extends Controller
     }
 
     public function ownerregister(Request $request):RedirectResponse{
-       
+
         $request->validate([
             'name' => 'required|string|max:15',
             'email' => 'required|email|unique:users|max:255',
@@ -106,8 +106,8 @@ class AdminController extends Controller
             $extension= $file->getClientOriginalExtension();
             $filename=$extension;
             $file->move('upload/users/',$filename);
-        } 
-        
+        }
+
         $user = new User();
         $user->name= $request->input('name');
         $user->email= $request->input('email');$user->photo ;
@@ -115,14 +115,14 @@ class AdminController extends Controller
         $user->password= Hash::make($request->input('password'));
         $user->photo='upload/users/'.$filename;
         $user->save();
-        
-        return to_route('owner')->with('success','a new owner is saved ')->with('photo', '/upload/users/' . $user->photo);
+
+        return to_route('owner')->with('success','a new owner is saved ');
     }
 
     public function delete ($id){
         $user= User::find($id);
         $user->delete();
-        if ($user->type== 'owner') {   
+        if ($user->type== 'owner') {
             return redirect()->route('owner')-> with('delete', 'L\'utilisateur a été supprimé avec succès.');
         }
         return redirect()->route('client')-> with('delete', 'L\'utilisateur a été supprimé avec succès.');
@@ -148,8 +148,8 @@ class AdminController extends Controller
             $extension= $file->getClientOriginalExtension();
             $filename=$extension;
             $file->move('upload/users/',$filename);
-        } 
-    
+        }
+
         DB::table('users')
             ->where('id', $request->id)
             ->update([
@@ -162,9 +162,9 @@ class AdminController extends Controller
             if ($request->type==='client') {
                 return redirect()->route('route')->with('update','l\'utilisateur a bien été modifier');
             }return redirect()->route('client')->with('update','l\'utilisateur a bien été modifier');
-            
-            
+
+
     }
-    
-  
+
+
 }
